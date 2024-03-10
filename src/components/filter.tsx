@@ -1,27 +1,6 @@
 import { useState } from "react";
 
 const Filter = ({ avatarColors, onChange, filter }) => {
-  // const onChange = () => {};
-
-  // const [componentSize, setComponentSize] = useState<SizeType | "default">(
-  //   "default"
-  // );
-
-  // };
-
-  // function onFinish(values) {
-  //   console.log("finish", values);
-  //   // const newAsset = {
-  //   //   id: coin.id,
-  //   //   amount: values.amount,
-  //   //   price: values.price,
-  //   //   date: values.date?.$d ?? new Date(),
-  //   // };
-  //   // assetRef.current = newAsset;
-  //   // setSubmitted(true);
-  //   // addAsset(newAsset);
-  // }
-
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
@@ -34,7 +13,6 @@ const Filter = ({ avatarColors, onChange, filter }) => {
           id=""
           onChange={onChange}
           defaultValue={filter.group}
-          // placeholder="Выберите фильтр по группам"
         >
           <option value="all">Все</option>
           <option value="closed">Закрытая</option>
@@ -77,48 +55,3 @@ const Filter = ({ avatarColors, onChange, filter }) => {
 };
 
 export default Filter;
-// <Form
-//   labelCol={{ span: 4 }}
-//   wrapperCol={{ span: 14 }}
-//   layout="horizontal"
-//   initialValues={{ group: undefined }}
-//   // onValuesChange={onFormLayoutChange}
-//   // onFinish={onFinish}
-//   // size={componentSize as SizeType}
-//   style={{ maxWidth: 600 }}
-// >
-//   <Form.Item label="Группа" name="group" id="group">
-//     <Select
-//       onChange={onChange}
-//       placeholder="Выберите фильтр по группам"
-//       name="group"
-//     >
-//       <Select.Option value="Все">Все</Select.Option>{" "}
-//       <Select.Option value="Закрытая">Закрытая</Select.Option>{" "}
-//       <Select.Option value="Открытая">Открытая</Select.Option>
-//     </Select>
-//   </Form.Item>
-//   <Form.Item label="Цвет аватарки">
-//     <Select
-//       onChange={onChange}
-//       placeholder="Выберите фильтр по цвету аватарки"
-//     >
-//       {avatarColors.map((color, i) => (
-//         <Select.Option key={i + color} value={color}>
-//           {color}
-//         </Select.Option>
-//       ))}
-//     </Select>
-//   </Form.Item>
-
-//   <Form.Item label="Друзья">
-//     <Select
-//       onChange={onChange}
-//       placeholder="Выберите фильтр по наличию друзей"
-//     >
-//       <Select.Option value="All">Все</Select.Option>{" "}
-//       <Select.Option value="gotFriends">Есть друзья</Select.Option>{" "}
-//       <Select.Option value="notFriends">Нет друзей</Select.Option>
-//     </Select>
-//   </Form.Item>
-// </Form>

@@ -55,8 +55,23 @@ function App() {
   }, []);
 
   const onChange = ({ target }) => {
+    console.log(target.value);
     setFilter((prev) => ({ ...prev, [target.name]: target.value }));
   };
+  let filteredGroups = groups;
+
+  if (filter.group !== "all") {
+    filteredGroups = groups?.filter((group) => group.group === filter.group);
+  }
+
+  if (filter.colorAvatar !== "all") {
+    filteredGroups = filteredGroups.filter(
+      (group) => group.avatar_color === filter.colorAvatar
+      // ||
+      // group.avatar_color === undefined
+      // group.avatar_color === filter.colorAvatar
+    );
+  }
 
   return (
     <>
@@ -69,7 +84,7 @@ function App() {
             onChange={onChange}
             filter={filter}
           />
-          <GroupsList groups={groups} />
+          <GroupsList groups={filteredGroups} />
         </>
       ) : (
         "loading"
