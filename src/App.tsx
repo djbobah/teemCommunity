@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import mockGroups from "./mock/groups.json";
 import Filter from "./components/filter";
 import GroupsList from "./components/groupsList";
+import { randNumber } from "./utils";
+import { message } from "antd";
 
 interface GetGroupsResponse {
   result: 1 | 0;
@@ -22,23 +24,45 @@ interface User {
   last_name: string;
 }
 
+interface IFilter {
+  group: string;
+  colorAvatar: string;
+  friends: string;
+}
+
 function App() {
   const [groups, setGroups] = useState();
-  const [filter, setFilter] = useState({
+  const [error, setError] = useState({});
+  const [filter, setFilter] = useState<IFilter>({
     group: "undefined",
     colorAvatar: "all",
     friends: "all",
   });
-  const getGroups = (): GetGroupsResponse => {
-    let result: 0 | 1;
 
-    setTimeout(() => {
-      result = 1;
-      setGroups(mockGroups);
-    }, 1000);
-  };
-  getGroups();
-  console.log(groups);
+  useEffect(() => {
+    getGroups().then((obj) => {
+      console.log(obj);
+      if (obj.result === 0) {
+        setError({
+          message:
+            "Условный сервер вернул ошибку. Попробуйте обновить страницу. Ошибка генерируется рандомно...",
+        });
+      } else {
+        setGroups(obj.data);
+      }
+    });
+  }, []);
+  function getGroups(): Promise<GetGroupsResponse> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const obj = { result: randNumber(1), data: mockGroups };
+        resolve(obj);
+      }, 1000);
+    });
+  }
+
+  // groups = getGroups();
+  // console.log(groups.result);
 
   const avatarColors: string[] = groups?.reduce((acc, item) => {
     if (acc.includes(item.avatar_color)) {
@@ -98,11 +122,16 @@ function App() {
           />
           <GroupsList groups={filteredGroups} />
         </>
-      ) : (
+      ) : error[message] !== undefined ? (
         "loading"
+      ) : (
+        error.message
       )}
     </>
   );
 }
 
 export default App;
+function getGroups() {
+  throw new Error("Function not implemented.");
+}
