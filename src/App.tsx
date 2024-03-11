@@ -10,7 +10,7 @@ interface GetGroupsResponse {
   data?: Group[];
 }
 
-interface Group {
+export interface Group {
   id: number;
   name: string;
   closed: boolean;
@@ -24,15 +24,19 @@ interface User {
   last_name: string;
 }
 
-interface IFilter {
+export interface IFilter {
   group: string;
   colorAvatar: string;
   friends: string;
 }
 
+type IError = {
+  mes: string;
+};
+
 function App() {
-  const [groups, setGroups] = useState();
-  const [error, setError] = useState({});
+  const [groups, setGroups] = useState<Group[]>([]);
+  const [error, setError] = useState<IError>({ mes: "" });
   const [filter, setFilter] = useState<IFilter>({
     group: "undefined",
     colorAvatar: "all",
@@ -44,11 +48,10 @@ function App() {
       console.log(obj);
       if (obj.result === 0) {
         setError({
-          message:
-            "Условный сервер вернул ошибку. Попробуйте обновить страницу. Ошибка генерируется рандомно...",
+          mes: "Условный сервер вернул ошибку. Попробуйте обновить страницу. Ошибка генерируется рандомно...",
         });
       } else {
-        setGroups(obj.data);
+        setGroups(obj.data as Group[]);
       }
     });
   }, []);
@@ -71,8 +74,10 @@ function App() {
     return [...acc, item.avatar_color];
   }, []);
 
-  const onChange = ({ target }) => {
-    // console.log(target.value);
+  const onChange: React.ChangeEventHandler<HTMLSelectElement> = ({
+    target,
+  }) => {
+    console.log(target);
     setFilter((prev) => ({ ...prev, [target.name]: target.value }));
   };
   let filteredGroups = groups;
@@ -113,7 +118,7 @@ function App() {
     <>
       <h2>VK community</h2>
 
-      {groups ? (
+      {groups.length > 0 ? (
         <>
           <Filter
             avatarColors={avatarColors}
@@ -122,16 +127,13 @@ function App() {
           />
           <GroupsList groups={filteredGroups} />
         </>
-      ) : error[message] !== undefined ? (
+      ) : error["mes"].length === 0 ? (
         "loading"
       ) : (
-        error.message
+        error.mes
       )}
     </>
   );
 }
 
 export default App;
-function getGroups() {
-  throw new Error("Function not implemented.");
-}
