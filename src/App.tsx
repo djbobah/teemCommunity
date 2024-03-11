@@ -25,7 +25,7 @@ interface User {
 function App() {
   const [groups, setGroups] = useState();
   const [filter, setFilter] = useState({
-    group: "all",
+    group: "undefined",
     colorAvatar: "all",
     friends: "all",
   });
@@ -34,18 +34,11 @@ function App() {
 
     setTimeout(() => {
       result = 1;
-      // resolve(mockGroups);
       setGroups(mockGroups);
     }, 1000);
   };
-  // console.log(data);
-  // return data;
-  // };
   getGroups();
   console.log(groups);
-
-  // console.log(ccc);
-  // console.log(mockGroups);
 
   const avatarColors: string[] = groups?.reduce((acc, item) => {
     if (acc.includes(item.avatar_color)) {
@@ -55,22 +48,41 @@ function App() {
   }, []);
 
   const onChange = ({ target }) => {
-    console.log(target.value);
+    // console.log(target.value);
     setFilter((prev) => ({ ...prev, [target.name]: target.value }));
   };
   let filteredGroups = groups;
 
-  if (filter.group !== "all") {
-    filteredGroups = groups?.filter((group) => group.group === filter.group);
+  if (filter.group !== "undefined") {
+    filteredGroups = groups?.filter(
+      (group) => group.closed.toString() == filter.group
+    );
   }
 
   if (filter.colorAvatar !== "all") {
-    filteredGroups = filteredGroups.filter(
-      (group) => group.avatar_color === filter.colorAvatar
-      // ||
-      // group.avatar_color === undefined
-      // group.avatar_color === filter.colorAvatar
-    );
+    // if()
+    if (filter.colorAvatar === "") {
+      filteredGroups = filteredGroups.filter(
+        (group) => typeof group["avatar_color"] === "undefined"
+      );
+    } else {
+      filteredGroups = filteredGroups.filter(
+        (group) => group.avatar_color === filter.colorAvatar
+      );
+    }
+  }
+
+  if (filter.friends !== "all") {
+    if (filter.friends === "gotFriends") {
+      filteredGroups = filteredGroups.filter(
+        (group) => typeof group["friends"] !== "undefined"
+      );
+    }
+    if (filter.friends === "notFriends") {
+      filteredGroups = filteredGroups.filter(
+        (group) => typeof group["friends"] === "undefined"
+      );
+    }
   }
 
   return (

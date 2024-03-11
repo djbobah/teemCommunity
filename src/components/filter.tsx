@@ -14,9 +14,9 @@ const Filter = ({ avatarColors, onChange, filter }) => {
           onChange={onChange}
           defaultValue={filter.group}
         >
-          <option value="all">Все</option>
-          <option value="closed">Закрытая</option>
-          <option value="opened">Открытая</option>
+          <option value="undefined">Все</option>
+          <option value="true">Закрытая</option>
+          <option value="false">Открытая</option>
         </select>
       </div>
       <div>

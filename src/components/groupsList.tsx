@@ -1,36 +1,36 @@
 import {
-  Icon12Verified,
+  // Icon12Verified,
   Icon28LockOpenOutline,
   Icon28LockOutline,
-  Icon28MessageOutline,
-  Icon28PaletteOutline,
-  Icon28SettingsOutline,
-  Icon28UserOutline,
-  Icon28Users,
+  // Icon28MessageOutline,
+  // Icon28PaletteOutline,
+  // Icon28SettingsOutline,
+  // Icon28UserOutline,
+  // Icon28Users,
   Icon28UsersOutline,
 } from "@vkontakte/icons";
 import {
-  Accordion,
+  // Accordion,
   AppRoot,
-  Avatar,
-  Div,
+  // Avatar,
+  // Div,
   Group,
   Header,
-  IconButton,
+  // IconButton,
   Panel,
   PanelHeader,
-  PanelHeaderBack,
-  Placeholder,
+  // PanelHeaderBack,
+  // Placeholder,
   SimpleCell,
   SplitCol,
   SplitLayout,
-  Switch,
+  // Switch,
   View,
-  platform,
+  // platform,
   usePlatform,
 } from "@vkontakte/vkui";
-import React from "react";
-import Group_ from "./group";
+// import React from "react";
+// import Group_ from "./group";
 import { Collapse } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
 
@@ -50,7 +50,9 @@ const GroupsList = ({ groups }) => {
           <SplitCol autoSpaced>
             <View activePanel="header">
               <Panel id="header">
-                <Group header={<Header mode="secondary">Группы</Header>} />
+                {/* `` <Group header={<Header mode="secondary">Группы</Header>} /> */}
+                <br />
+                {/* <hr /> */}
                 {groups.map((group) => (
                   <div key={group.id}>
                     <Group>
@@ -92,8 +94,6 @@ const GroupsList = ({ groups }) => {
 
                       <SimpleCell
                         style={{ display: "flex", alignItems: "center" }}
-                        onClick={() => setActivePanel("nothing")}
-                        expandable="auto"
                         before={<Icon28UsersOutline />}
                         colSpan={2}
                       >
