@@ -1,6 +1,13 @@
-import { useState } from "react";
+import React from "react";
+import { IFilter } from "../App";
 
-const Filter = ({ avatarColors, onChange, filter }) => {
+interface FilterProps {
+  avatarColors: string[];
+  onChange: React.ChangeEventHandler<HTMLSelectElement>;
+  filter: IFilter;
+}
+
+const Filter: React.FC<FilterProps> = ({ avatarColors, onChange, filter }) => {
   return (
     <form
       onSubmit={(e) => e.preventDefault()}

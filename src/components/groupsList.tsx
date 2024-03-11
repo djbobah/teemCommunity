@@ -1,46 +1,36 @@
 import {
-  // Icon12Verified,
   Icon28LockOpenOutline,
   Icon28LockOutline,
-  // Icon28MessageOutline,
-  // Icon28PaletteOutline,
-  // Icon28SettingsOutline,
-  // Icon28UserOutline,
-  // Icon28Users,
   Icon28UsersOutline,
 } from "@vkontakte/icons";
 import {
-  // Accordion,
   AppRoot,
-  // Avatar,
-  // Div,
   Group,
-  Header,
-  // IconButton,
   Panel,
   PanelHeader,
-  // PanelHeaderBack,
-  // Placeholder,
   SimpleCell,
   SplitCol,
   SplitLayout,
-  // Switch,
   View,
-  // platform,
   usePlatform,
 } from "@vkontakte/vkui";
 // import React from "react";
 // import Group_ from "./group";
 import { Collapse } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
+import { Group as GroupType } from "../App";
 
-const GroupsList = ({ groups }) => {
+interface GroupsListProps {
+  groups: GroupType[];
+}
+
+const GroupsList: React.FC<GroupsListProps> = ({ groups }) => {
   // const [activePanel, setActivePanel] = React.useState("list");
 
   const platform = usePlatform();
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
+  // const onChange = (key: string | string[]) => {
+  //   console.log(key);
+  // };
   return (
     <>
       <AppRoot mode="full">
