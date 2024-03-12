@@ -70,15 +70,6 @@ function App() {
 
   const avatarColors: string[] = groups?.reduce(
     (acc: string[], item: Group): string[] => {
-      // if (acc.includes(item.avatar_color)) {
-      //   return acc;
-      // }
-
-      // return [...acc, item.avatar_color] as string[];
-      if (typeof item.avatar_color === undefined) {
-        return [...acc, "color_not_present"];
-      }
-
       if (item.avatar_color && !acc.includes(item.avatar_color)) {
         return [...acc, item.avatar_color];
       }
@@ -137,6 +128,7 @@ function App() {
             onChange={onChange}
             filter={filter}
           />
+          <hr />
           <GroupsList groups={filteredGroups} />
         </>
       ) : error["message"].length === 0 ? (

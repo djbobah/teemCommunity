@@ -8,7 +8,6 @@ interface FilterProps {
 }
 
 const Filter: React.FC<FilterProps> = ({ avatarColors, onChange, filter }) => {
-  console.log(avatarColors);
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
@@ -21,6 +20,7 @@ const Filter: React.FC<FilterProps> = ({ avatarColors, onChange, filter }) => {
           id=""
           onChange={onChange}
           defaultValue={filter.group}
+          style={{ height: "30px" }}
         >
           <option value="undefined">Все</option>
           <option value="true">Закрытая</option>
@@ -35,6 +35,7 @@ const Filter: React.FC<FilterProps> = ({ avatarColors, onChange, filter }) => {
           id=""
           onChange={onChange}
           defaultValue={filter.group}
+          style={{ height: "30px" }}
         >
           <option value="all">Все</option>
           {avatarColors.map((item, i) => (
@@ -52,6 +53,7 @@ const Filter: React.FC<FilterProps> = ({ avatarColors, onChange, filter }) => {
           id=""
           onChange={onChange}
           defaultValue={filter.group}
+          style={{ height: "30px" }}
         >
           <option value="Все">Все</option>
           <option value="gotFriends">Есть друзья</option>
