@@ -8,6 +8,7 @@ interface FilterProps {
 }
 
 const Filter: React.FC<FilterProps> = ({ avatarColors, onChange, filter }) => {
+  console.log(avatarColors);
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
@@ -37,7 +38,7 @@ const Filter: React.FC<FilterProps> = ({ avatarColors, onChange, filter }) => {
         >
           <option value="all">Все</option>
           {avatarColors.map((item, i) => (
-            <option key={i + item} value={item}>
+            <option key={i + String(item)} value={item}>
               {item}
             </option>
           ))}

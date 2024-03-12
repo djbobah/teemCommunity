@@ -3,7 +3,7 @@ import mockGroups from "./mock/groups.json";
 import Filter from "./components/filter";
 import GroupsList from "./components/groupsList";
 import { randNumber } from "./utils";
-import { message } from "antd";
+// import { messagesage } from "antd";
 
 interface GetGroupsResponse {
   result: 1 | 0;
@@ -31,12 +31,12 @@ export interface IFilter {
 }
 
 type IError = {
-  mes: string;
+  message: string;
 };
 
 function App() {
   const [groups, setGroups] = useState<Group[]>([]);
-  const [error, setError] = useState<IError>({ mes: "" });
+  const [error, setError] = useState<IError>({ message: "" });
   const [filter, setFilter] = useState<IFilter>({
     group: "undefined",
     colorAvatar: "all",
@@ -45,10 +45,11 @@ function App() {
 
   useEffect(() => {
     getGroups().then((obj) => {
-      console.log(obj);
+      // console.log(obj);
       if (obj.result === 0) {
         setError({
-          mes: "Условный сервер вернул ошибку. Попробуйте обновить страницу. Ошибка генерируется рандомно...",
+          message:
+            "Условный сервер вернул ошибку. Попробуйте обновить страницу. Ошибка генерируется рандомно...",
         });
       } else {
         setGroups(obj.data as Group[]);
@@ -58,26 +59,38 @@ function App() {
   function getGroups(): Promise<GetGroupsResponse> {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const obj = { result: randNumber(1), data: mockGroups };
+        const obj: GetGroupsResponse = {
+          result: randNumber(1) as 0 | 1,
+          data: mockGroups,
+        };
         resolve(obj);
       }, 1000);
     });
   }
 
-  // groups = getGroups();
-  // console.log(groups.result);
+  const avatarColors: string[] = groups?.reduce(
+    (acc: string[], item: Group): string[] => {
+      // if (acc.includes(item.avatar_color)) {
+      //   return acc;
+      // }
 
-  const avatarColors: string[] = groups?.reduce((acc, item) => {
-    if (acc.includes(item.avatar_color)) {
+      // return [...acc, item.avatar_color] as string[];
+      if (typeof item.avatar_color === undefined) {
+        return [...acc, "color_not_present"];
+      }
+
+      if (item.avatar_color && !acc.includes(item.avatar_color)) {
+        return [...acc, item.avatar_color];
+      }
+
       return acc;
-    }
-    return [...acc, item.avatar_color];
-  }, []);
+    },
+    []
+  );
 
   const onChange: React.ChangeEventHandler<HTMLSelectElement> = ({
     target,
   }) => {
-    console.log(target);
     setFilter((prev) => ({ ...prev, [target.name]: target.value }));
   };
   let filteredGroups = groups;
@@ -89,7 +102,6 @@ function App() {
   }
 
   if (filter.colorAvatar !== "all") {
-    // if()
     if (filter.colorAvatar === "") {
       filteredGroups = filteredGroups.filter(
         (group) => typeof group["avatar_color"] === "undefined"
@@ -127,10 +139,10 @@ function App() {
           />
           <GroupsList groups={filteredGroups} />
         </>
-      ) : error["mes"].length === 0 ? (
+      ) : error["message"].length === 0 ? (
         "loading"
       ) : (
-        error.mes
+        error.message
       )}
     </>
   );
